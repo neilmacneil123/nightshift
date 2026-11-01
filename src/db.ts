@@ -1,0 +1,3 @@
+const db=new Promise<IDBDatabase>((resolve,reject)=>{const r=indexedDB.open('nightshift',1);r.onupgradeneeded=()=>r.result.createObjectStore('metadata');r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)});
+export async function save(key:string,value:unknown){const d=await db;return new Promise<void>((resolve,reject)=>{const tx=d.transaction('metadata','readwrite');tx.objectStore('metadata').put(value,key);tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);});}
+export async function read<T>(key:string):Promise<T|undefined>{const d=await db;return new Promise((resolve,reject)=>{const r=d.transaction('metadata').objectStore('metadata').get(key);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}

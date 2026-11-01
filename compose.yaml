@@ -1,0 +1,8 @@
+services:
+  webdj:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${WEB_DJ_PORT:-8080}:80"
+    restart: unless-stopped
