@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.vite-cache/
+smoke.png
+
+# Separate reference checkout
+mixxx/
+*.log
